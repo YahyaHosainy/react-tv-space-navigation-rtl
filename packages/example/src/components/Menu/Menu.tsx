@@ -59,6 +59,7 @@ const menuItems: Record<keyof RootTabParamList, MenuItems> = {
     icon: 'LayoutDashboard',
   },
   ListWithVariableSize: { label: 'List with variable size', icon: 'LayoutDashboard' },
+  RightAlignedList: { label: 'Right Aligned List', icon: 'LayoutDashboard' },
   AsynchronousContent: { label: 'Asynchronous content', icon: 'Timer' },
 };
 

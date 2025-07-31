@@ -226,7 +226,7 @@ export const VirtualizedList = typedMemo(
     );
 
     const directionStyle = useMemo(
-      () => ({ flexDirection: vertical ? 'column' : 'row' } as const),
+      () => ({ flexDirection: vertical ? 'column' : (rightAligned? 'row-reverse': 'row') } as const),
       [vertical],
     );
 
