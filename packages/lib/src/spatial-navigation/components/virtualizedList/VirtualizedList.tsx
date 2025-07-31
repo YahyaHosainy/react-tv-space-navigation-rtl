@@ -49,6 +49,7 @@ export interface VirtualizedListProps<T> {
   listSizeInPx: number;
   scrollBehavior?: ScrollBehavior;
   testID?: string;
+  rightAligned?: boolean;
 }
 
 const useOnEndReached = ({
@@ -91,6 +92,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     itemSize,
     vertical,
     data,
+    rightAligned,
   }: {
     item: T;
     index: number;
@@ -98,6 +100,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     itemSize: number | ((item: T) => number);
     vertical: boolean;
     data: T[];
+    rightAligned?: boolean;
   }) => {
     const computeOffset = useCallback(
       (item: T, index: number) =>
@@ -110,7 +113,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     const style = useMemo(
       () =>
         StyleSheet.flatten([
-          styles.item,
+          rightAligned? styles.rightAlignedItem: styles.item,
           vertical
             ? { transform: [{ translateY: computeOffset(item, index) }] }
             : { transform: [{ translateX: computeOffset(item, index) }] },
@@ -147,6 +150,7 @@ export const VirtualizedList = typedMemo(
     listSizeInPx,
     scrollBehavior = 'stick-to-start',
     testID,
+    rightAligned,
   }: VirtualizedListProps<T>) => {
     const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen({
       data,
@@ -205,12 +209,14 @@ export const VirtualizedList = typedMemo(
             vertical,
             scrollDuration,
             scrollOffsetsArray: allScrollOffsets,
+            rightAligned,
           })
         : useVirtualizedListAnimation({
             currentlyFocusedItemIndex,
             vertical,
             scrollDuration,
             scrollOffsetsArray: allScrollOffsets,
+            rightAligned,
           });
 
     /*
@@ -226,7 +232,7 @@ export const VirtualizedList = typedMemo(
     );
 
     const directionStyle = useMemo(
-      () => ({ flexDirection: vertical ? 'column' : (rightAligned? 'row-reverse': 'row') } as const),
+      () => ({ flexDirection: vertical ? 'column' : 'row' } as const),
       [vertical],
     );
 
@@ -260,7 +266,7 @@ export const VirtualizedList = typedMemo(
 
     return (
       <Animated.View
-        style={[styles.container, animatedStyle, style, directionStyle, dimensionStyle]}
+        style={[rightAligned? styles.rightAlignedContainer: styles.container, animatedStyle, style, directionStyle, dimensionStyle]}
         testID={testID}
       >
         <View>
@@ -275,6 +281,7 @@ export const VirtualizedList = typedMemo(
                 itemSize={itemSize}
                 vertical={vertical}
                 data={data}
+                rightAligned={rightAligned}
               />
             );
           })}
@@ -289,8 +296,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  rightAlignedContainer: {
+    flex: 1,
+  },
   item: {
     left: 0,
     position: 'absolute',
   },
+  rightAlignedItem: {
+    left: 0,
+    position: 'absolute',
+  }
 });

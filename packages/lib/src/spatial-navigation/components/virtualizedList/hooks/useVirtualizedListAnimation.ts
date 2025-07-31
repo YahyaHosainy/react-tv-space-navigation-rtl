@@ -7,6 +7,7 @@ export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   vertical = false,
   scrollDuration,
   scrollOffsetsArray,
+  rightAligned,
 }) => {
   const translation = useRef<Animated.Value>(new Animated.Value(0)).current;
   const newTranslationValue = scrollOffsetsArray[currentlyFocusedItemIndex];
@@ -30,6 +31,7 @@ export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   vertical = false,
   scrollDuration,
   scrollOffsetsArray,
+  rightAligned,
 }) => {
   const animationDuration = `${scrollDuration}ms`;
   const newTranslationValue = scrollOffsetsArray[currentlyFocusedItemIndex];

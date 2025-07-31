@@ -5,4 +5,5 @@ export type TypeVirtualizedListAnimation = (args: {
   vertical?: boolean;
   scrollDuration: number;
   scrollOffsetsArray: number[];
+  rightAligned?: boolean;
 }) => Animated.WithAnimatedValue<ViewStyle>;
