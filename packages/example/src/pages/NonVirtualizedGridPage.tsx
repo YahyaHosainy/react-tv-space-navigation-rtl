@@ -2,7 +2,7 @@ import {
   DefaultFocus,
   SpatialNavigationScrollView,
   SpatialNavigationView,
-} from 'react-tv-space-navigation';
+} from 'react-tv-space-navigation-rtl';
 import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
 import { getPrograms } from '../modules/program/infra/programInfos';
@@ -38,6 +38,12 @@ export const NonVirtualizedGridPage = () => {
             ascendingArrow={<BottomArrow />}
             descendingArrowContainerStyle={styles.topArrowContainer}
             ascendingArrowContainerStyle={styles.bottomArrowContainer}
+            useNativeScroll={true}
+            nativeScrollViewProps={{
+              onScroll: (event: { nativeEvent: { contentOffset: { y: number; x: number } } }) => {
+                console.log('event.nativeEvent',event.nativeEvent.contentOffset)
+              },
+            }}
           >
             <Header
               title="Example of a non-virtualized grid with spatial navigation"

@@ -11,6 +11,7 @@ import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneIte
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 import { getNumberOfItemsVisibleOnScreen } from './helpers/getNumberOfItemsVisibleOnScreen';
 import { getAdditionalNumberOfItemsRendered } from './helpers/getAdditionalNumberOfItemsRendered';
+import config from './config';
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
@@ -116,7 +117,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
           rightAligned? styles.rightAlignedItem: styles.item,
           vertical
             ? { transform: [{ translateY: computeOffset(item, index) }] }
-            : { transform: [{ translateX: computeOffset(item, index) }] },
+            : { transform: [{ translateX: (config.useRTL? -1: 1) * computeOffset(item, index) }] },
         ]),
       [computeOffset, item, index, vertical],
     );

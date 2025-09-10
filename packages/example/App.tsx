@@ -20,6 +20,11 @@ import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigati
 import { ListWithVariableSize } from './src/pages/ListWithVariableSize';
 import { RightAlignedList } from './src/pages/RightAlignedList';
 import { AsynchronousContent } from './src/pages/AsynchronousContent';
+import { I18nManager } from 'react-native';
+
+// Enable RTL layout globally
+I18nManager.allowRTL(true);
+I18nManager.forceRTL(true); // For Apple TV/Android TV
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

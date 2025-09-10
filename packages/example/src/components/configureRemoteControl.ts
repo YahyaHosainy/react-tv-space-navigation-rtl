@@ -1,12 +1,12 @@
-import { Directions, SpatialNavigation } from 'react-tv-space-navigation';
+import { Directions, SpatialNavigation } from 'react-tv-space-navigation-rtl';
 import { SupportedKeys } from './remote-control/SupportedKeys';
-import RemoteControlManager from './remote-control/RemoteControlManager.android';
+import RemoteControlManager from './RemoteControlManager';
 
 SpatialNavigation.configureRemoteControl({
   remoteControlSubscriber: (callback) => {
     const mapping: { [key in SupportedKeys]: Directions | null } = {
-      [SupportedKeys.Right]: Directions.RIGHT,
-      [SupportedKeys.Left]: Directions.LEFT,
+      [SupportedKeys.Right]: (true? Directions.LEFT: Directions.RIGHT),
+      [SupportedKeys.Left]: (true? Directions.RIGHT: Directions.LEFT),
       [SupportedKeys.Up]: Directions.UP,
       [SupportedKeys.Down]: Directions.DOWN,
       [SupportedKeys.Enter]: Directions.ENTER,
@@ -25,4 +25,6 @@ SpatialNavigation.configureRemoteControl({
   remoteControlUnsubscriber: (remoteControlListener) => {
     RemoteControlManager.removeKeydownListener(remoteControlListener);
   },
+
+  useRTL: true
 });
